@@ -1,11 +1,15 @@
 # Cardano staking
 
-## Jormungandr
-
-### Intall on VPS
+## Overview
+Run on a VPS a cardano node: 
+- Network: testnet Shelley
+- Node code version: Jormungandr
+- Join cluster nightly [config](https://hydra.iohk.io/build/2156729/download/1/index.html)
+- With staking pool capabilities
 
 ## Install node for staking pool
 - Tuto [here](https://github.com/input-output-hk/shelley-testnet/blob/master/docs/stake_pool_operator_how_to.md)
+or [here](https://github.com/Chris-Graffagnino/Jormungandr-for-Newbs/blob/master/docs/jormungandr_node_setup_guide.md)
 - Create VM in aws (ubuntu ram:4BG, disk:100GB)
 - Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@34.248.53.21`
 - Install soft:
