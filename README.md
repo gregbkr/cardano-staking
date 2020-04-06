@@ -7,7 +7,8 @@ Run on a VPS a cardano node:
 - Join cluster nightly [config](https://hydra.iohk.io/build/2156729/download/1/index.html)
 - With staking pool capabilities
 
-## Install node for staking pool
+## Deploy
+### Install node for staking pool
 - Tuto [here](https://github.com/input-output-hk/shelley-testnet/blob/master/docs/stake_pool_operator_how_to.md)
 or [here](https://github.com/Chris-Graffagnino/Jormungandr-for-Newbs/blob/master/docs/jormungandr_node_setup_guide.md)
 - Create VM in aws (ubuntu ram:4BG, disk:100GB)
@@ -30,7 +31,7 @@ screen -R
 ```
 
 
-## Reconnect to a running node
+### Reconnect to a running node
 - Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@34.248.53.21`
 - Screen attach: `screen -r` 
 - Change screen: `CTRL + A then Space`
@@ -45,11 +46,9 @@ PUBLIC_KEY_PK:  ed25519_pk1dp4kmk6lkdhhxrchymwnxnltpamyq7eajsglr3ujk7e5dw3uu6pqm
 ADDRESS:        addr1s45xkmwmt7ek7uc0zund6v60av8hvsrm8k2pruw8j2mmx3468nngyyycmmw
 ```
 
-## Error:
-
+### Error:
 
 ```
-
 Apr 06 19:15:37.321 INFO receiving from network bytes=1.66mb 278.64kb/s, blockchain 75703415-0006d40c-683.1183, peer_addr: 52.8.169.161:3000, task: bootstrap
 Apr 06 19:15:44.310 INFO receiving from network bytes=1.66mb 243.13kb/s, blockchain 3a4322de-0006ddd0-686.6060, peer_addr: 52.8.169.161:3000, task: bootstrap
 Apr 06 19:15:51.263 INFO receiving from network bytes=1.66mb 244.39kb/s, blockchain 174e80c3-0006e794-690.4860, peer_addr: 52.8.169.161:3000, task: bootstrap
