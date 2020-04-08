@@ -12,7 +12,7 @@ Run on a VPS a cardano node:
 - Tuto [here](https://github.com/input-output-hk/shelley-testnet/blob/master/docs/stake_pool_operator_how_to.md)
 or [here](https://github.com/Chris-Graffagnino/Jormungandr-for-Newbs/blob/master/docs/jormungandr_node_setup_guide.md)
 - Create VM in aws (ubuntu ram:4BG, disk:100GB)
-- Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@52.31.216.140
+- Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@52.31.216.140`
 `
 - Install soft:
 ```
@@ -20,25 +20,38 @@ mkdir cardano
 cd cardano
 wget https://github.com/input-output-hk/jormungandr/releases/download/v0.8.16/jormungandr-v0.8.16-x86_64-unknown-linux-gnu-generic.tar.gz
 tar xvf jormungandr-v0.8.16-x86_64-unknown-linux-gnu-generic.tar.gz
-./jcli -V
-./jormungandr -V
+mv jcli jormungandr /usr/local/bin/.
+jcli -V
+jormungandr -V
 nano stakepool-config.yaml <-- replace 0.0.0.0 with your public IP
 ```
 
-Run node in a screen:
-```
-screen -R 
-./jormungandr --genesis-block-hash $(cat genesis-hash.txt) --config ./stakepool-config.yaml
-```
+- Run node:
+`nohup jormungandr --genesis-block-hash $(cat genesis-hash.txt) --config ./stakepool-config.yaml >> ~/cardano_node.log 2>&1 &`
 
 
-### Reconnect to a running node
-- Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@34.248.53.21`
-- Screen attach: `screen -r` 
-- Change screen: `CTRL + A then Space`
-- Check status: `./jcli rest v0 node stats get --host "http://127.0.0.1:3100/api"`
+### Run wallet
+
+Get genesis / block0.bin: 
+```
+wget https://hydra.iohk.io/build/1523436/download/1/itn_rewards_v1-genesis.yaml
+mv itn_rewards_v1-genesis.yaml
+jcli genesis encode --input genesis.yaml > block0.bin
+```
+
+Start wallet:
+```
+wget https://github.com/input-output-hk/cardano-wallet/releases/download/v2020-04-01/cardano-wallet-itn-v2020-04-01-linux64.tar.gz
+mv cardano-wallet-itn /usr/local/bin/.
+cardano-wallet-itn serve --genesis-block-hash $(jcli genesis hash --input block0.bin)
+```
+
+### Checks
+- See logs: `tail -f ~/cardano_node.log`
+- Check status: `jcli rest v0 node stats get --host "http://127.0.0.1:3100/api"`
+- Create account: 
 - `echo addr1s45xkmwmt7ek7uc0zund6v60av8hvsrm8k2pruw8j2mmx3468nngyyycmmw > account.txt`
-- Check balance: `./jcli rest v0 account get $ACCOUNT_ADDRESS -h http://127.0.0.1:3100/api` or `./jcli rest v0 account get $(cat account.txt) -h http://127.0.0.1:3100/api`
+- Check balance: `jcli rest v0 account get $ACCOUNT_ADDRESS -h http://127.0.0.1:3100/api` or `./jcli rest v0 account get $(cat account.txt) -h http://127.0.0.1:3100/api`
 
 - Test Pool server:
 ```
