@@ -12,7 +12,8 @@ Run on a VPS a cardano node:
 - Tuto [here](https://github.com/input-output-hk/shelley-testnet/blob/master/docs/stake_pool_operator_how_to.md)
 or [here](https://github.com/Chris-Graffagnino/Jormungandr-for-Newbs/blob/master/docs/jormungandr_node_setup_guide.md)
 - Create VM in aws (ubuntu ram:4BG, disk:100GB)
-- Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@34.248.53.21`
+- Connect: `ssh -i ~/.ssh/aws-finstack-greg-user.pem ubuntu@52.31.216.140
+`
 - Install soft:
 ```
 mkdir cardano
@@ -36,8 +37,8 @@ screen -R
 - Screen attach: `screen -r` 
 - Change screen: `CTRL + A then Space`
 - Check status: `./jcli rest v0 node stats get --host "http://127.0.0.1:3100/api"`
-- `export ACCOUNT_ADDRESS=addr1s45xkmwmt7ek7uc0zund6v60av8hvsrm8k2pruw8j2mmx3468nngyyycmmw`
-- Check balance: `./jcli rest v0 account get $ACCOUNT_ADDRESS -h http://127.0.0.1:3100/api`
+- `echo addr1s45xkmwmt7ek7uc0zund6v60av8hvsrm8k2pruw8j2mmx3468nngyyycmmw > account.txt`
+- Check balance: `./jcli rest v0 account get $ACCOUNT_ADDRESS -h http://127.0.0.1:3100/api` or `./jcli rest v0 account get $(cat account.txt) -h http://127.0.0.1:3100/api`
 
 - Test Pool server:
 ```
